@@ -30,10 +30,7 @@ fn statistics(records: &Vec<Record>) {
 
     for record in records {
         for time in &record.times {
-            result
-                .entry(time)
-                .or_insert(vec![&record.name])
-                .push(&record.name);
+            result.entry(time).or_insert(Vec::new()).push(&record.name);
         }
     }
 
@@ -44,7 +41,6 @@ fn statistics(records: &Vec<Record>) {
     let mut repeat_names = HashSet::new();
 
     result.iter_mut().for_each(|(time, names)| {
-        names.dedup();
         names.retain(|name| !repeat_names.contains(*name));
 
         if names.len() == 0 {
