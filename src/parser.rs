@@ -52,9 +52,7 @@ pub fn parse(path: &str, sheet: &str) -> Result<Vec<Record>, Error> {
                 .as_string()
                 .ok_or("no time data")?
                 .split(|c| c == '，' || c == ',')
-                .collect::<Vec<&str>>()
-                .iter()
-                .map(|&s| Time::from_str(s))
+                .map(|s| Time::from_str(s))
                 .collect();
             let name = row[6].as_string().ok_or("no name data")?;
             records.push(Record { name, times });
