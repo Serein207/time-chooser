@@ -11,12 +11,15 @@ struct Args {
     /// xlsx file path
     #[arg(short, long)]
     path: String,
+    /// sheet name
+    #[arg[short, long]]
+    sheet: String,
 }
 
 pub fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
 
-    let records = parser::parse(&args.path)?;
+    let records = parser::parse(&args.path, &args.sheet)?;
 
     println!("Total records: {}", records.len());
 

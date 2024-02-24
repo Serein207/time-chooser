@@ -40,10 +40,10 @@ impl Time {
     }
 }
 
-pub fn parse(path: &str) -> Result<Vec<Record>, Error> {
+pub fn parse(path: &str, sheet: &str) -> Result<Vec<Record>, Error> {
     let mut excel: Xlsx<_> = open_workbook(path)?;
     let mut records: Vec<Record> = Vec::new();
-    if let Ok(r) = excel.worksheet_range("Sheet1") {
+    if let Ok(r) = excel.worksheet_range(sheet) {
         for row in r.rows().skip(1) {
             if row[5].is_empty() {
                 continue;
